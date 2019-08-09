@@ -4,10 +4,19 @@ A handy bash script to setup masternode in no time on a VPS with Ubuntu 16.04 x6
 ***
 
 ## VPS installation for version **1.0**
+For **Ubuntu 16.04**
 ```
 wget -q https://raw.githubusercontent.com/VersessCTO/versess-masternode-builder/master/build_masternode.sh
 sudo chmod +x build_masternode.sh
 ./build_masternode.sh
+```
+***
+
+For **Ubuntu 18.04**
+```
+wget -q https://raw.githubusercontent.com/VersessCTO/versess-masternode-builder/master/build_masternode_Ubuntu_1804.sh
+sudo chmod +x build_masternode_Ubuntu_1804.sh
+./build_masternode_Ubuntu_1804.sh
 ```
 ***
 
