@@ -122,42 +122,6 @@ sudo apt-get -y install libminiupnpc-dev
 sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y
    fi
 
-#Network Settings
-echo -e "${GREEN}Installing Network Settings...${NC}"
-{
-sudo apt-get install ufw -y
-} &> /dev/null
-echo -ne '[##                 ]  (10%)\r'
-{
-sudo apt-get update -y
-} &> /dev/null
-echo -ne '[######             ] (30%)\r'
-{
-sudo ufw default deny incoming
-} &> /dev/null
-echo -ne '[#########          ] (50%)\r'
-{
-sudo ufw default allow outgoing
-sudo ufw allow ssh
-} &> /dev/null
-echo -ne '[###########        ] (60%)\r'
-{
-sudo ufw allow $PORT/tcp
-sudo ufw allow $RPC/tcp
-} &> /dev/null
-echo -ne '[###############    ] (80%)\r'
-{
-sudo ufw allow 22/tcp
-sudo ufw limit 22/tcp
-} &> /dev/null
-echo -ne '[#################  ] (90%)\r'
-{
-echo -e "${YELLOW}"
-sudo ufw --force enable
-echo -e "${NC}"
-} &> /dev/null
-echo -ne '[###################] (100%)\n'
-
 #Generating Random Password for  JSON RPC
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
@@ -228,8 +192,10 @@ done
     versess-cli stop
     sleep 5
 cd ~/.versess/ && rm -rf blocks chainstate sporks zerocoin
-cd ~/.versess/ && wget https://github.com/VersessCTO/versess-core/releases/download/v1.0/bootstrap.zip
-cd ~/.versess/ && unzip bootstrap.zip	
+cd ~/.versess/ && wget http://159.89.82.16/bootstrap.tar.gz
+cd ~/.versess/ && tar -xzvf bootstrap.tar.gz
+sudo rm -rf ~/.versess/bootstrap.tar.gz
+	
 # Create versess.conf
 cat <<EOF > ~/.versess/versess.conf
 rpcuser=$rpcuser
